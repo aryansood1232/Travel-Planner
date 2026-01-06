@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hawaii Tourism</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tourism.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <h2>🌍 Travel Planner</h2>
+    </div>
+    <div class="nav-right">
+      <span id="username-display">Traveler</span>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/saved-trip">Saved Trips</a>
+      <a href="/recent-trip">Recent Trips</a>
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </nav>
+
+  <header class="hero" style="background-image: url('../images/hawaii-hero.jpg');">
+    <div class="hero-text">
+      <h1>Hawaii</h1>
+      <p>Sun, Surf, and Aloha Spirit</p>
+    </div>
+  </header>
+
+  <section class="city-info">
+    <h2>About Hawaii</h2>
+    <p>Hawaii is a tropical paradise known for its stunning beaches, volcanic landscapes, lush forests, and vibrant culture. Enjoy surfing, snorkeling, and traditional Hawaiian experiences across the islands.</p>
+  </section>
+
+  <section class="attractions">
+    <h2>Top Attractions</h2>
+    <div class="attraction-cards">
+      <div class="attraction-card">
+        <img src="../images/waikiki-beach.jpg" alt="Waikiki Beach">
+        <h3>Waikiki Beach</h3>
+        <p>Famous beach in Honolulu with golden sands, surfing, and beachfront dining.</p>
+      </div>
+      <div class="attraction-card">
+        <img src="../images/haleakala.jpg" alt="Haleakalā National Park">
+        <h3>Haleakalā National Park</h3>
+        <p>Experience sunrise above the clouds atop Hawaii’s largest dormant volcano.</p>
+      </div>
+      <div class="attraction-card">
+        <img src="../images/volcanoes-national-park.jpg" alt="Hawai'i Volcanoes National Park">
+        <h3>Hawai'i Volcanoes National Park</h3>
+        <p>Explore active volcanoes, lava fields, and unique ecosystems on the Big Island.</p>
+      </div>
+      <div class="attraction-card">
+        <img src="../images/na-pali-coast.jpg" alt="Nā Pali Coast">
+        <h3>Nā Pali Coast</h3>
+        <p>Iconic cliffs and scenic coastline accessible by boat, helicopter, or hiking.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="map-gallery">
+    <h2>Explore on Map</h2>
+    <div id="map"></div>
+  </section>
+
+  <script>
+    function initMap() {
+      const hawaii = { lat: 20.7967, lng: -156.3319 }; // roughly central Hawaii
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 7,
+        center: hawaii,
+      });
+
+      const attractions = [
+        { name: "Waikiki Beach", position: { lat: 21.2767, lng: -157.8223 } },
+        { name: "Haleakalā National Park", position: { lat: 20.7097, lng: -156.2533 } },
+        { name: "Hawai'i Volcanoes National Park", position: { lat: 19.4194, lng: -155.2881 } },
+        { name: "Nā Pali Coast", position: { lat: 22.2100, lng: -159.6000 } }
+      ];
+
+      attractions.forEach(loc => {
+        const marker = new google.maps.Marker({
+          position: loc.position,
+          map: map,
+          title: loc.name
+        });
+
+        const infoWindow = new google.maps.InfoWindow({
+          content: `<strong>${loc.name}</strong>`
+        });
+
+        marker.addListener("click", () => infoWindow.open(map, marker));
+      });
+    }
+
+    // Load username
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const userRes = await fetch("/api/user-info");
+        if (!userRes.ok) throw new Error("User not logged in");
+        const user = await userRes.json();
+        document.getElementById("username-display").textContent = user.username;
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  </script>
+
+  <script
+    async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALFU6QDEMfp6vtL3WE9wdgrtg6tM4M7Ts&libraries=places&callback=initMap"
+  ></script>
+</body>
+</html>

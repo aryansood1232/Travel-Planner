@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Japan Tourism</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tourism.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-left">
+      <h2>🌍 Travel Planner</h2>
+    </div>
+    <div class="nav-right">
+      <span id="username-display">Traveler</span>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/saved-trip">Saved Trips</a>
+      <a href="/recent-trip">Recent Trips</a>
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </nav>
+
+  <header class="hero" style="background-image: url('../images/japan-hero.jpg');">
+    <div class="hero-text">
+      <h1>Japan</h1>
+      <p>Land of the Rising Sun</p>
+    </div>
+  </header>
+
+  <section class="city-info">
+    <h2>About Japan</h2>
+    <p>
+      Japan is a country blending ancient traditions and modern innovation.
+      Explore vibrant cities, historic temples, stunning cherry blossoms,
+      and picturesque landscapes.
+    </p>
+  </section>
+
+  <section class="attractions">
+    <h2>Top Attractions</h2>
+    <div class="attraction-cards">
+      <div class="attraction-card">
+        <img src="../images/tok-tower.jpg" alt="Tokyo Tower">
+        <h3>Tokyo Tower</h3>
+        <p>An iconic landmark offering panoramic views of Tokyo’s skyline.</p>
+      </div>
+      <div class="attraction-card">
+        <img src="../images/kinkaku-ji.jpg" alt="Kinkaku-ji Temple">
+        <h3>Kinkaku-ji Temple</h3>
+        <p>Golden Pavilion temple in Kyoto surrounded by serene gardens.</p>
+      </div>
+      <div class="attraction-card">
+        <img src="../images/mount-fuji.jpg" alt="Mount Fuji">
+        <h3>Mount Fuji</h3>
+        <p>Japan’s tallest mountain and a UNESCO World Heritage Site.</p>
+      </div>
+      <div class="attraction-card">
+        <img src="../images/fushimi-inari.jpg" alt="Fushimi Inari Shrine">
+        <h3>Fushimi Inari Shrine</h3>
+        <p>Famous for its thousands of red torii gates in Kyoto.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="map-gallery">
+    <h2>Explore on Map</h2>
+    <div id="map"></div>
+  </section>
+
+  <!-- Google Map Logic -->
+  <script>
+    function initMap() {
+      const japan = { lat: 36.2048, lng: 138.2529 };
+
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 5,
+        center: japan,
+      });
+
+      const attractions = [
+        { name: "Tokyo Tower", position: { lat: 35.6586, lng: 139.7454 } },
+        { name: "Kinkaku-ji Temple", position: { lat: 35.0394, lng: 135.7292 } },
+        { name: "Mount Fuji", position: { lat: 35.3606, lng: 138.7274 } },
+        { name: "Fushimi Inari Shrine", position: { lat: 34.9671, lng: 135.7727 } }
+      ];
+
+      attractions.forEach(loc => {
+        const marker = new google.maps.Marker({
+          position: loc.position,
+          map,
+          title: loc.name
+        });
+
+        const infoWindow = new google.maps.InfoWindow({
+          content: `<strong>${loc.name}</strong>`
+        });
+
+        marker.addListener("click", () => infoWindow.open(map, marker));
+      });
+    }
+
+    // Dynamically load Google Maps script
+    async function loadGoogleMaps() {
+      const res = await fetch("/api/google-maps-key");
+      if (!res.ok) throw new Error("Failed to fetch Google Maps API key");
+
+      const data = await res.json();
+
+      const script = document.createElement("script");
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${data.key}&libraries=places&callback=initMap`;
+      script.async = true;
+      script.defer = true;
+
+      document.head.appendChild(script);
+    }
+
+    loadGoogleMaps();
+  </script>
+
+  <!-- Load username -->
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const userRes = await fetch("/api/user-info");
+        if (!userRes.ok) throw new Error("User not logged in");
+        const user = await userRes.json();
+        document.getElementById("username-display").textContent = user.username;
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  </script>
+
+</body>
+</html

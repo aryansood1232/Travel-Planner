@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: url('../images/pic2.jpg');
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-card {
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 15px;
+  width: 320px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.auth-title {
+  margin-bottom: 10px;
+  font-size: 26px;
+  color: #333;
+}
+
+.auth-subtitle {
+  margin-bottom: 20px;
+  color: #777;
+  font-size: 14px;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #ffa500;
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff7e5f;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.auth-form button:hover {
+  background-color: #eb5e3c;
+}
+
+.auth-footer {
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+.auth-footer a {
+  color: #ff7e5f;
+  text-decoration: none;
+}

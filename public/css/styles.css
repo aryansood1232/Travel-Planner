@@ -1,0 +1,160 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0077b6;
+  color: #fff;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.navbar h2 {
+  margin: 0;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logout-btn {
+  background: #ff4d4d;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h1 {
+  font-size: 1.8rem;
+}
+
+.dashboard-buttons {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: 0.3s ease;
+}
+
+.btn.primary {
+  background: #0077b6;  /* deep blue */
+  color: white;
+}
+
+.btn.secondary {
+  background: #90e0ef;  /* light turquoise */
+  color: #003049;       /* dark blue text */
+}
+
+.btn.third {
+  background: #00b4d8;  /* medium turquoise */
+  color: white;          /* maintain readability */
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.recent-trips h2 {
+  margin-bottom: 1rem;
+}
+
+.trip-cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.trip-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: 0.3s ease;
+}
+
+.trip-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+.empty-msg {
+  color: #666;
+}
+.itinerary-text {
+  white-space: pre-wrap; /* preserves line breaks & wrapping */
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  line-height: 1.6;
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.slideshow-container {
+  position: relative;
+  max-width: 800px;
+  margin: 2rem auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.slide {
+  display: none;
+  position: relative;
+}
+
+.slide img {
+  width: 100%;
+  display: block;
+}
+
+.caption {
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+  color: #fff;
+  font-size: 1.2rem;
+  background: rgba(0,0,0,0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1s;
+}
+
+@keyframes fade {
+  from {opacity: 0.4}
+  to {opacity: 1}
+}

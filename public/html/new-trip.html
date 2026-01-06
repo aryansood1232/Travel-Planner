@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>New Trip</title>
+  <link rel="stylesheet" href="../css/new-trip.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <script src="../js/new-trip.js" defer></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <h2>🌍 Travel Planner</h2>
+    </div>
+    <div class="nav-right">
+      <span id="username-display">Traveler</span>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/saved-trip">Saved Trips</a>
+      <a href="/recent-trip">Recent Trips</a>
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </nav>
+
+  <div class="trip-form">
+    <h1>Plan Your Trip</h1>
+    <form id="tripForm">
+      <label for="destination">Destination</label>
+      <input type="text" id="destination" name="destination" placeholder="Enter a city" required />
+
+      <label for="startDate">Start Date</label>
+      <input type="date" id="startDate" name="startDate" required />
+
+      <label for="endDate">End Date</label>
+      <input type="date" id="endDate" name="endDate" required />
+
+      <label for="interests">Your Interests</label>
+      <input type="text" id="interests" name="interests" placeholder="e.g., museums, nature, food" required />
+
+      <label for="prompt">Optional Prompt</label>
+      <textarea id="prompt" name="prompt" placeholder="Anything specific you'd like us to consider?"></textarea>
+
+      <button type="submit">Generate Itinerary</button>
+    </form>
+  </div>
+
+  <div id="tripResults" style="display: none;">
+    <section id="mapSection">
+      <h2>Map of Attractions</h2>
+      <div id="map" style="height: 400px;"></div>
+    </section>
+
+    <section id="itinerarySection">
+      <h2>AI-Generated Itinerary</h2>
+      <div id="itinerary"></div>
+    </section>
+
+    <section id="saveTripSection">
+      <button id="saveTripBtn" style="display:none;">💾 Save Trip</button>
+    </section>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const userRes = await fetch("/api/user-info");
+        if (!userRes.ok) throw new Error("User not logged in");
+        const user = await userRes.json();
+        document.getElementById("username-display").textContent = user.username;
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

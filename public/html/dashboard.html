@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+   <nav class="navbar">
+    <div class="nav-left">
+      <h2>🌍 Travel Planner</h2>
+    </div>
+    <div class="nav-right">
+      <span id="username-display">Traveler</span>
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <h1>Welcome, <span id="username">Traveler</span>!</h1>
+
+    <div class="dashboard-buttons">
+      <a href="/new-trip" class="btn primary">➕ New Trip</a>
+      <a href="/saved-trip" class="btn secondary">📁 Saved Trips</a>
+      <a href="/recent-trip" class="btn third">🧳 Recent Trips</a>
+    </div>
+
+ 
+<section class="slideshow-container">
+    <div class="slide fade">
+  <img src="../images/japan.jpg" alt="Japan" />
+  <div class="caption">
+    <a href="/japan" style="color: #fff;">From Cherry Blossoms to Skyscrapers – Discover Japan</a>
+  </div>
+  </div>
+  <div class="slide fade">
+  <img src="../images/hawaii.jpg" alt="Japan" />
+  <div class="caption">
+    <a href="/hawaii" style="color: #fff;">Paradise Awaits – Discover Hawaii’s Beaches and Volcanoes</a>
+  </div>
+  </div>
+  
+  <div class="slide fade">
+  <img src="../images/london.jpg" alt="London" />
+  <div class="caption">
+    <a href="/london" style="color: #fff;">London – The Heart of the UK</a>
+  </div>
+  </div>
+  <div class="slide fade">
+  <img src="../images/new-york.jpg" alt="New York" />
+  <div class="caption">
+    <a href="/new-york" style="color: #fff;">New York – The City That Never Sleeps</a>
+  </div>
+</div>
+</section>
+    
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      // 1. Fetch user info
+      const userRes = await fetch('/api/user-info');
+      if (!userRes.ok) throw new Error('User not logged in');
+      const user = await userRes.json();
+      document.getElementById('username').textContent = user.username;
+      document.getElementById('username-display').textContent = user.username;
+      // 2. Fetch recent trips
+      const tripsRes = await fetch('/api/recent-trips');
+      const trips = await tripsRes.json();
+      const list = document.getElementById('recent-trips-list');
+
+      if (trips.length === 0) {
+        list.innerHTML = '<li>No trips found. Start your first trip!</li>';
+      } else {
+        trips.forEach(trip => {
+          const li = document.createElement('li');
+          li.textContent = `${trip.destination} (${trip.date})`;
+          list.appendChild(li);
+        });
+      }
+
+    } catch (err) {
+      console.error(err);
+    }
+  });
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  const slides = document.getElementsByClassName("slide");
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) slideIndex = 1;
+  slides[slideIndex - 1].style.display = "block";
+  setTimeout(showSlides, 4000); // Change slide every 4 seconds
+}
+  </script>
+</body>
+</html>

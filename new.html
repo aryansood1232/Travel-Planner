@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New York Tourism</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tourism.css">
+
+</head>
+<body>
+ <nav class="navbar">
+    <div class="nav-left">
+      <h2>🌍 Travel Planner</h2>
+    </div>
+    <div class="nav-right">
+      <span id="username-display">Traveler</span>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/saved-trip">Saved Trips</a>
+      <a href="/recent-trip">Recent Trips</a>
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </nav>
+  <header class="hero" style="background-image: url('../images/newyork-hero.jpg');">
+    <div class="hero-text">
+      <h1>New York</h1>
+      <p>The city that never sleeps</p>
+    </div>
+  </header>
+
+  <section class="city-info">
+    <h2>About New York</h2>
+    <p>New York City is the cultural and financial capital of the world. Explore iconic skyscrapers, Broadway shows, world-class museums, and diverse neighborhoods.</p>
+  </section>
+
+  <section class="attractions">
+    <h2>Top Attractions</h2>
+    <div class="attraction-cards">
+      <div class="attraction-card">
+        <img src="../images/statue-of-liberty.jpg" alt="Statue of Liberty">
+        <h3>Statue of Liberty</h3>
+        <p>A symbol of freedom and one of the most famous landmarks in the world.</p>
+      </div>
+      <div class="attraction-card">
+        <img src="../images/central-park.jpg" alt="Central Park">
+        <h3>Central Park</h3>
+        <p>An urban oasis with walking paths, lakes, and green spaces in the heart of the city.</p>
+      </div>
+      <div class="attraction-card">
+        <img src="../images/times-square.jpg" alt="Times Square">
+        <h3>Times Square</h3>
+        <p>Vibrant lights, Broadway theaters, and bustling crowds make this the heart of Manhattan.</p>
+      </div>
+      <div class="attraction-card">
+        <img src="../images/brooklyn-bridge.jpg" alt="Brooklyn Bridge">
+        <h3>Brooklyn Bridge</h3>
+        <p>Historic suspension bridge offering iconic views of Manhattan and Brooklyn.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="map-gallery">
+    <h2>Explore on Map</h2>
+    <div id="map"></div>
+  </section>
+
+  <script>
+    function initMap() {
+      const nyc = { lat: 40.7128, lng: -74.0060 };
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 12,
+        center: nyc,
+      });
+
+      const attractions = [
+        { name: "Statue of Liberty", position: { lat: 40.6892, lng: -74.0445 } },
+        { name: "Central Park", position: { lat: 40.7851, lng: -73.9683 } },
+        { name: "Times Square", position: { lat: 40.7580, lng: -73.9855 } },
+        { name: "Brooklyn Bridge", position: { lat: 40.7061, lng: -73.9969 } }
+      ];
+
+      attractions.forEach(loc => {
+        const marker = new google.maps.Marker({
+          position: loc.position,
+          map: map,
+          title: loc.name
+        });
+
+        const infoWindow = new google.maps.InfoWindow({
+          content: `<strong>${loc.name}</strong>`
+        });
+
+        marker.addListener("click", () => infoWindow.open(map, marker));
+      });
+    }
+  </script>
+  <script>
+    // Load username
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const userRes = await fetch("/api/user-info");
+        if (!userRes.ok) throw new Error("User not logged in");
+        const user = await userRes.json();
+        document.getElementById("username-display").textContent = user.username;
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  </script>
+  <script
+    async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-NK8sNVwzVVM9XeyhfGV_XRHzJZobvfE&libraries=places&callback=initMap"
+  ></script>
+</body>
+</html

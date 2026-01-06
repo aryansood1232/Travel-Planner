@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saved Trips</title> 
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/saved-trips.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-left">
+      <h2>🌍 Travel Planner</h2>
+    </div>
+    <div class="nav-right">
+      <span id="username-display">Traveler</span>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/new-trip">New Trip</a>
+      <a href="/recent-trip">Recent Trips</a>
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </nav>
+
+
+  <header class="page-header">
+    <h1>Your Saved Trips</h1>
+    <p>View and manage all your saved travel plans</p>
+  </header>
+
+ 
+  <main>
+    <div id="tripsGrid" class="grid"></div>
+  </main>
+
+ 
+  <script src="../js/saved-trips.js"></script>
+  <script>
+    // Load username
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const userRes = await fetch("/api/user-info");
+        if (!userRes.ok) throw new Error("User not logged in");
+        const user = await userRes.json();
+        document.getElementById("username-display").textContent = user.username;
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
