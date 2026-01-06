@@ -12,8 +12,8 @@ services:
     image: mysql:8
     container_name: db
     environment:
-      MYSQL_ROOT_PASSWORD: Secret123!
-      MYSQL_DATABASE: travel_planner
+      MYSQL_ROOT_PASSWORD: Secret123!   #replace with ur mysql database password
+      MYSQL_DATABASE: travel_planner #replace with your  mysql daatabse 
     ports:
       - "3306:3306"
     volumes:
