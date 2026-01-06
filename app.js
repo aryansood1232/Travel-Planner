@@ -298,6 +298,11 @@ app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/html/login.html'));
 });
 
+
+app.get('/login.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/html/login.html'));
+});
+
 app.get('/signup.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/html/signup.html'));
 });
