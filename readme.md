@@ -37,7 +37,7 @@ docker-compose --version
 
 This project uses environment variables for database credentials, API keys, and secrets.
 
-### `.env.example` (commit this to GitHub)
+### `.env
 
 ```env
 # Database configuration
@@ -53,9 +53,7 @@ GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 # Session / Auth
 SESSION_SECRET=your_session_secret
 
-# App
 
-```
 
 ### `.env` (DO NOT COMMIT)
 
