@@ -55,16 +55,6 @@ SESSION_SECRET=your_session_secret
 
 
 
-### `.env` (DO NOT COMMIT)
-
-Create your real `.env` file:
-
-```bash
-cp .env.example .env
-```
-
-Fill in real values **locally only**.
-
 Make sure `.env` is listed in `.gitignore`.
 
 ---
