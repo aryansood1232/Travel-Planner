@@ -55,24 +55,11 @@ SESSION_SECRET=your_session_secret
 
 
 
-Make sure `.env` is listed in `.gitignore`.
 
----
 
-## 🗄 Database Initialization (`init.sql`)
 
-The project includes an `init.sql` file located in `db-init/`.
-
-### How it works
-
-- The file is mounted into the MySQL container at startup:
-
-```yaml
-./db-init:/docker-entrypoint-initdb.d
-```
-
-- MySQL automatically executes `init.sql` **the first time the container starts**.
-- The script creates the `travel_planner` database (and tables if defined).
+ MySQL automatically executes `init.sql` **the first time the container starts**.
+-The script creates the `travel_planner` database and its tables.
 
 ### Re-running `init.sql`
 
