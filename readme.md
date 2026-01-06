@@ -164,7 +164,7 @@ Computer Science | Full-Stack Developer
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/travel-planner.git
+git clone https://github.com/aryansood1232/travel-planner.git
 cd travel-planner
 ```
 
