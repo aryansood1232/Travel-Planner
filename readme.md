@@ -108,8 +108,8 @@ This will:
 Once running, the server will be available at:
 
 ```
-http://localhost:3032
-```
+[
+](http://localhost:3028/signup.html)```
 
 ---
 
