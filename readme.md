@@ -31,19 +31,17 @@ docker-compose --version
 
 ---
 
-
-
 ## 🔐 Environment Variables
 
 This project uses environment variables for database credentials, API keys, and secrets.
 
-### `.env
+### `.env.example`
 
 ```env
 # Database configuration
 DB_HOST=db
 DB_USER=root
-DB_PASSWORD=your_mysql_password
+DB_PASSWORD=your_mysql_password   # Must match MYSQL_ROOT_PASSWORD in docker-compose.yml
 DB_NAME=travel_planner
 
 # API Keys (replace with your own)
@@ -52,14 +50,12 @@ GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 
 # Session / Auth
 SESSION_SECRET=your_session_secret
+```
 
+### Database Initialization (`init.sql`)
 
-
-
-
-
- MySQL automatically executes `init.sql` **the first time the container starts**.
--The script creates the `travel_planner` database and its tables.
+* The `init.sql` file is automatically executed by MySQL **the first time the container starts**.
+* It creates the `travel_planner` database and any required tables.
 
 ### Re-running `init.sql`
 
@@ -71,6 +67,8 @@ docker-compose up --build
 ```
 
 ⚠️ This deletes all database data and recreates it from `init.sql`.
+
+
 
 ---
 
